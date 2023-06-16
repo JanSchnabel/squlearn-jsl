@@ -15,6 +15,7 @@ from .feature_map_implemented.hz_crxcrycrz import HZCRxCRyCRz
 from .feature_map_implemented.cheb_rx import ChebRx
 from .feature_map_implemented.zfeaturemap_cx import ZFeatureMap_CX
 from .feature_map_implemented.qiskit_z_feature_map import QiskitZFeatureMap
+from .feature_map_implemented.wf_to_featuremap import WavefunctionToFeatureMap
 
 __all__ = [
     "FeatureMapBase",
@@ -34,4 +35,5 @@ __all__ = [
     "ChebRx",
     "ZFeatureMap_CX",
     "QiskitZFeatureMap",
+    "WavefunctionToFeatureMap"
 ]
