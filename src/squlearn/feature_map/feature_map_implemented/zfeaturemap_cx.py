@@ -10,12 +10,12 @@ from ..feature_map_base import FeatureMapBase
 
 class ZFeatureMap_CX(FeatureMapBase):
     """
-    Creates Qiskit's ZFeatureMap 
+    Creates Qiskit's ZFeatureMap
         (https://qiskit.org/documentation/stubs/qiskit.circuit.library.ZFeatureMap.html)
     with additional CNOT gates between the default layers.
 
     The number of qubits and the number of features have to be the same!
-    
+
     Args:
         num_qubits (int): The number of qubits
         num_features (int): The number of features

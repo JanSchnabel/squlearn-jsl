@@ -11,7 +11,7 @@ from ..feature_map_base import FeatureMapBase
 
 class QiskitZFeatureMap(FeatureMapBase):
     """
-    Wrapper to use Qiskit's ZFeatureMap 
+    Wrapper to use Qiskit's ZFeatureMap
     (https://qiskit.org/documentation/stubs/qiskit.circuit.library.ZFeatureMap.html)
     within sQulearn. The feature map represents the first order Pauli Z-evolution
     circuit.
@@ -19,13 +19,13 @@ class QiskitZFeatureMap(FeatureMapBase):
     Args:
         num_qubits (int): The number of qubits
         num_features (int): The number of features
-        reps (int): The number of repeated circuits. Defaults to 2, has a 
+        reps (int): The number of repeated circuits. Defaults to 2, has a
             minimum value of 1
-        data_map_func (Optional[Callable[[np.ndarray], float]]): 
-            A mapping function for data x which can be supplied to override 
+        data_map_func (Optional[Callable[[np.ndarray], float]]):
+            A mapping function for data x which can be supplied to override
             the default mapping from self_product()
         parameter_prefix (str): The prefix used if default parameters are generated
-        insert_barriers (bool): If True, barriers are inserted in between the evolution 
+        insert_barriers (bool): If True, barriers are inserted in between the evolution
             instructions and hadamard layers
     """
 

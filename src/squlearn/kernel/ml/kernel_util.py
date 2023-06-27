@@ -9,6 +9,7 @@ import scipy
 from sklearn.gaussian_process.kernels import Kernel
 from ..matrix.kernel_matrix_base import KernelMatrixBase
 
+
 def kernel_wrapper(kernel_matrix: KernelMatrixBase):
     class CustomKernel(Kernel):
         def __init__(self, kernel_matrix: KernelMatrixBase):

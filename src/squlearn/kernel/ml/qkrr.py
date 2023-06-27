@@ -21,11 +21,13 @@ class QKRR(BaseEstimator, RegressorMixin):
     Args:
         quantum_kernel (KernelMatrixBase): The quantum kernel matrix to be used in the KRR pipeline
             (either a fidelity quantum kernel (FQK) or projected quantum kernel (PQK) must be provided)
-        alpha (Union[float, np.ndarray]), default=1.e-6: Hyperparameter for the regularization strength; must be a positive float.
-            This regularization improves the conditioning of the problem and assure the solvability of the resulting
-            linear system. Larger values specify stronger regularization (cf., e.g., `https://en.wikipedia.org/wiki/Ridge_regression´)
-        regularize (Union[str, None]), default=None: Option for choosing different regularization techniques ('thresholding' or 'tikhonov')
-            after `http://arxiv.org/pdf/2105.02276v1´ for the training kernel matrix, prior to solving the linear system in the fit() procedure
+        alpha (Union[float, np.ndarray]): Default=1.e-6. Hyperparameter for the regularization strength;
+            must be a positive float. This regularization improves the conditioning of the kernel matrix
+            and assures the solvability of the resulting linear system. Larger values specify stronger
+            regularization (cf., e.g., `https://en.wikipedia.org/wiki/Ridge_regression´)
+        regularize (Union[str, None]): Default=None. Option for choosing different regularization techniques
+            ('thresholding' or 'tikhonov') after `http://arxiv.org/pdf/2105.02276v1´ for the training kernel
+            matrix, prior to solving the linear system in the fit() procedure
     """
 
     def __init__(
@@ -44,6 +46,13 @@ class QKRR(BaseEstimator, RegressorMixin):
         self.num_qubits = self._quantum_kernel.num_qubits
 
     def fit(self, x_train: np.ndarray, y_train: np.ndarray):
+        """
+        Fit Kernel Ridge regression model.
+
+        Args:
+            x_train (np.ndarray): Training data.
+            y_train (np.ndarray): Target values (i.e. labels)
+        """
         if self._quantum_kernel.num_features > 1:
             self.x_train = np.repeat(
                 x_train.reshape(-1, 1), repeats=self._quantum_kernel.num_features, axis=1
@@ -71,6 +80,12 @@ class QKRR(BaseEstimator, RegressorMixin):
         return self
 
     def predict(self, x_test: np.ndarray) -> np.ndarray:
+        """
+        Predict using the kernel ridge model.
+
+        Args:
+            x_test (np.ndarray): Test data / samples.
+        """
         if self.k_train is None:
             raise ValueError("The fit() method has to be called beforehand.")
         if self._quantum_kernel.num_features > 1:
@@ -84,6 +99,13 @@ class QKRR(BaseEstimator, RegressorMixin):
     # All scikit-learn estimators have get_params and set_params
     # (cf. https://scikit-learn.org/stable/developers/develop.html)
     def get_params(self, deep: bool = True):
+        """
+        Get parameters of QKRR model.
+
+        Args:
+            deep (bool): If True, will return the parameters for the QKRR model and
+                contained subobjects.
+        """
         return {
             "quantum_kernel": self._quantum_kernel,
             "alpha": self.alpha,
