@@ -1,3 +1,5 @@
+"""Quantum Gaussian Process Regressor"""
+
 from ..matrix.kernel_matrix_base import KernelMatrixBase
 from .helper_functions import stack_input
 from .kernel_util import regularize_full_kernel, tikhonov_regularization
@@ -12,17 +14,16 @@ from numbers import Real
 
 
 class QGPR(BaseEstimator, RegressorMixin):
-    """Quantum Gaussian process regression (QGPR).
+    """
+    Quantum Gaussian process regression (QGPR).
 
     Args:
-    ---------
-    quantum_kernel: KernelMatrixBase class quantum kernel object
-    (either a fidelity kernel or the PQK must be provided)
-    sigma: float; regularization parameter that gets added to the training kernels main diagonal
-    normalize_y: bool; enable normalization of y-variable. Default = False.
-    regularize: string; enable full gram matrix regularization technique via 'full'. Default = 'off'.
-    or enable Tikhonov regularization via 'tikhonov'.
-
+        quantum_kernel (KernelMatrixBase): Quantum kernel object;
+            either a fidelity kernel or the PQK.
+        sigma (float): Regularization parameter that gets added to the training kernels main diagonal
+        normalize_y (bool): Enable normalization of y-variable. Default = False.
+        regularize (str): Enable full gram matrix regularization technique via 'full'. Default = 'off'.
+            or enable Tikhonov regularization via 'tikhonov'.
     """
 
     def __init__(
@@ -45,6 +46,14 @@ class QGPR(BaseEstimator, RegressorMixin):
         self.regularize = regularize
 
     def fit(self, X_train, y_train):
+        """
+        Fit Quantum Gaussian process regression model.
+
+        Args:
+            X_train (np.ndarray): Feature vectors or other representation of training data 
+                (n_samples, n_features).
+            y_train (np.ndarray): Target values.
+        """
         # stack inpur as many times as nr_qubits
         if self._quantum_kernel.num_features > 1:
             self.X_train = stack_input(
@@ -75,6 +84,15 @@ class QGPR(BaseEstimator, RegressorMixin):
         return self
 
     def predict(self, X_test, return_std=True, return_cov=False):
+        """
+        Predict using the Gaussian process regression model.
+
+        X_test (np.ndarray): Query points where the GP is evaluated, i.e. test data
+        return_std (bool): Default=True. If True, the standard-deviation of the predictive
+            distribution at the query points is returned along with the mean.
+        return_cov (bool): Default=False. If True, the covariance of the joint predictive
+            distribution at the query points is returned along with the mean.
+        """
         if self.K_train is None:
             raise ValueError("There is no training data. Please call the fit method first.")
         if self._quantum_kernel.num_features > 1:
