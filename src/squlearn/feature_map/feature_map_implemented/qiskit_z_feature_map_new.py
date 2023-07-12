@@ -45,7 +45,7 @@ class QiskitZFeatureMapNew(FeatureMapBase):
     def get_circuit(
         self,
         features: Union[ParameterVector, np.ndarray],
-        parameters: Union[ParameterVector, np.ndarray],
+        parameters: Union[ParameterVector, np.ndarray]=None,
     ) -> QuantumCircuit:
         if self._num_features != len(features):
             raise ValueError("Wrong number of features in supplied vector")
