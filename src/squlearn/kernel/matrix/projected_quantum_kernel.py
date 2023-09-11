@@ -452,7 +452,14 @@ class ProjectedQuantumKernel(KernelMatrixBase):
 
         if self._parameters is None:
             raise ValueError("Parameters have not been set yet!")
-
+        
+        if len(np.asarray(self._parameters).shape) == 1:
+            print("len of shape of parameter is 1")
+            self._parameters = np.asarray([self._parameters]).reshape(-1,1)
+        #s = len(np.asarray([self._parameters]).reshape(-1,1).shape)
+        print(np.asarray([self._parameters]).reshape(-1,1))
+        #print(s)
+    
         kernel_matrix = self._outer_kernel(self._qnn, self._parameters, x, y)
         if (self._regularization is not None) and (
             kernel_matrix.shape[0] == kernel_matrix.shape[1]
