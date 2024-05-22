@@ -30,6 +30,7 @@ __all__ = [
     "HubregtsenEncodingCircuit",
     "ChebyshevTower",
     "ChebyshevPQC",
+    "ChebyshevPQC_Var1",
     "MultiControlEncodingCircuit",
     "ChebyshevRx",
     "ParamZFeatureMap",
