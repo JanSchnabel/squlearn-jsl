@@ -6,7 +6,7 @@ from qiskit.circuit import ParameterVector
 from ..encoding_circuit_base import EncodingCircuitBase
 
 
-class YZ_CX_EncodingCircuit(EncodingCircuitBase):
+class YZ_CX_EncodingCircuit_Var1(EncodingCircuitBase):
     """
     Creates the YZ-CX Encoding Circuit from reference [1].
 
@@ -107,22 +107,22 @@ class YZ_CX_EncodingCircuit(EncodingCircuitBase):
         # Creates the layers of the encoding circuit
         QC = QuantumCircuit(self.num_qubits)
         index_offset = 0
-        feature_offset = 0
+        #feature_offset = 0
         for layer in range(self.num_layers):
             for i in range(self.num_qubits):
                 QC.ry(
                     parameters[index_offset % nparam]
-                    + self.c * features[feature_offset % nfeature],
+                    + self.c * features[i % nfeature],
                     i,
                 )
                 index_offset += 1
                 QC.rz(
                     parameters[index_offset % nparam]
-                    + self.c * features[feature_offset % nfeature],
+                    + self.c * features[i % nfeature],
                     i,
                 )
                 index_offset += 1
-                feature_offset += 1
+                #feature_offset += 1
             # Entangling layer depends on odd or even layer
             if self.num_qubits >= 2:
                 for i in range(layer % 2, self.num_qubits + self.closed - 1, 2):
