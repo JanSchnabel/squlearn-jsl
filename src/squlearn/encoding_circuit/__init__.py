@@ -6,7 +6,7 @@ from .circuit_library.qcnn_encoding_circuit import QCNNEncodingCircuit
 from .circuit_library.yz_cx_encoding_circuit import YZ_CX_EncodingCircuit
 from .circuit_library.yz_cx_encoding_circuit_var1 import YZ_CX_EncodingCircuit_Var1
 from .circuit_library.highdim_encoding_circuit import HighDimEncodingCircuit
-from .circuit_library.highdim_encoding_circuit_var1 import HighDimEncodingCircuit_Var1
+#from .circuit_library.highdim_encoding_circuit_var1 import HighDimEncodingCircuit_Var1
 from .circuit_library.hubregtsen_encoding_circuit import HubregtsenEncodingCircuit
 from .circuit_library.chebyshev_tower import ChebyshevTower
 from .circuit_library.chebyshev_pqc import ChebyshevPQC
